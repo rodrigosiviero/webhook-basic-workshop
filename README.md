@@ -39,4 +39,4 @@ Para que possamos fazer o workshop é necessário:
 
 Agora que você está com tudo pronto vamos para o dia 1!
 
-[CLIQUE AQUI!](../blob/master/dia1/setup.md)
+[CLIQUE AQUI!](../master/dia1/setup.md)
