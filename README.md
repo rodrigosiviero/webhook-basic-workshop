@@ -37,3 +37,6 @@ Para que possamos fazer o workshop é necessário:
 * Conta AWS é opcional para deploy na aws.
 
 
+Agora que você está com tudo pronto vamos para o dia 1!
+
+[CLIQUE AQUI!](../blob/master/dia1/setup.md)
