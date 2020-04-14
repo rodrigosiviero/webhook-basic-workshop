@@ -130,8 +130,39 @@ E finalmente passamos o -d, que é de data, ele indica o payload que iremos envi
 }
 ```
 
-## Brincando com o Webhook
 
+## Modificando webhook.
+
+
+Beleza, agora temos um webhook/API no ar, precisamos preparar ele agora para o próximo passo, vamos deixar mais agradavel a leitura para quem for receber o payload, para isso precisamos instalar o requests, caso você ainda não tenha feito, faça agora.
+
+
+Esse é o código:
+
+
+```
+from flask import Flask, request, abort   # Imports do Flask
+
+app = Flask(__name__) # Instância do Flask chamada app
+
+
+@app.route('/webhook', methods=['POST'])  # Aqui estamos criando o decorador "route" do Flask, ele irá criar uma rota - http://localhost:5000/webhook
+def webhook():                            # Defininindo a função webhook
+    if request.method == 'POST':          # Se o request vindo for POST entre na condição
+        json_payload = request.json       # Pegaremos o request em json e atribuieremos para uma variável.
+        name = json_payload['nome']       # Fazendo o parse da variavel que criamos com nossos dados em json e pegando o nome
+        message= json_payload['mensagem'] # A mesma coisa acima porém a mensagem!
+        print(f"{name} te enviou uma mensagem: {message}") # Iremos agora printar de forma formatada a mensagem recebida!
+        return '', 200                    # Retorne 200
+    else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
+        abort(400)                        
+
+if __name__ == '__main__':                # Função Main
+    app.run()                             # Executando de fato o script
+```
+
+
+## Brincando com o Webhook
 
 Se você seguiu tudo até agora parabéns você tem um webhook no ar! Agora vamos expor ele para a Internet assim seus colegas vão conseguir consumir o mesmo.
 
@@ -169,13 +200,3 @@ Algo assim irá aparecer:
 Isso significa que você está redirecionando o Flask para o ngrok, que te gerou um dominio temporário externo e você compartilhar para seus amigos o mesmo!
 
 Agora pegue sua URL e mande para seus amigos e enviem qualquer tipo de mensagem!
-
-
-
-
-
-
-
-
-
-
