@@ -40,3 +40,10 @@ Para que possamos fazer o workshop é necessário:
 Agora que você está com tudo pronto vamos para o dia 1!
 
 [CLIQUE AQUI!](../master/dia1/setup.md)
+
+
+## Referencias
+
+* https://ogma-dev.github.io/posts/simple-flask-webhook/
+* https://en.wikipedia.org/wiki/Webhook
+* https://docs.gitlab.com/ce/api/
