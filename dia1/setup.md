@@ -212,4 +212,4 @@ Agora temos diversas pessoas mandando diversos posts para diversos webhooks dist
 
 Agora que você terminou(ou não), vamos para o dia 2! Caso você não tenha terminado os arquivos estão na pasta do dia1!
 
-[CLIQUE AQUI!](../master/dia2/webhook.md)
+[CLIQUE AQUI!](../dia2/webhook.md)
