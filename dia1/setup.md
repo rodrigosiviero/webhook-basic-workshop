@@ -200,3 +200,10 @@ Algo assim irá aparecer:
 Isso significa que você está redirecionando o Flask para o ngrok, que te gerou um dominio temporário externo e você compartilhar para seus amigos o mesmo!
 
 Agora pegue sua URL e mande para seus amigos e enviem qualquer tipo de mensagem!
+
+
+E para esclarecer oque estamos fazendo agora temos o seguinte:
+
+
+
+![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/final_day1.png?raw=true "Webhook")
