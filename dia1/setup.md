@@ -202,8 +202,14 @@ Isso significa que você está redirecionando o Flask para o ngrok, que te gerou
 Agora pegue sua URL e mande para seus amigos e enviem qualquer tipo de mensagem!
 
 
-E para esclarecer oque estamos fazendo agora temos o seguinte:
-
+Agora temos diversas pessoas mandando diversos posts para diversos webhooks distintos, temos mais ou menos algo assim:
 
 
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/final_day1.png?raw=true "Webhook")
+
+
+# Dia 2
+
+Agora que você terminou(ou não), vamos para o dia 2! Caso você não tenha terminado os arquivos estão na pasta do dia1!
+
+[CLIQUE AQUI!](../master/dia2/webhook.md)
