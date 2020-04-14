@@ -20,8 +20,6 @@ Para esse primeiro dia iremos:
 * Consumir esse webhook via terminal
 * Integrar ele com Gitlab local
 
-
-
 Para ilustrar será isso:
 
 
@@ -99,8 +97,38 @@ Se tudo funcionar você irá ver uma tela assim:
 
 ## Consumindo seu webhook
 
+Se você rodou o servidor do flask e tem sua API no ar, chegou a hora de testarmos!
+
+Abra um **outro** terminal e execute o seguinte:
 
 
+```
+curl -H "Content-Type: application/json" -X POST -d '{"mensagem": "Olá Mundo!! Olá Webhook"}' 127.0.0.1:5000/webhook
+```
+
+No momento de execução você deve receber um:
+
+```
+{"status":"success"}
+```
+
+Se você agora olhar no terminal aonde está rodando o servidor você deverá ver a requisição que acabou de fazer!
+
+![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/olamundo.png?raw=true "Webhook")
+
+
+Nesse comando estamos passando o -H que é o Header do request como Content-Type, ele serve para indicar para o servidor que estamos mandando um payload do tipo _JSON_.
+
+O próximo parametro -X POST é o tipo de HTTP request, como nosso webhook só aceita POST iremos usar somente ele aqui.
+
+E finalmente passamos o -d, que é de data, ele indica o payload que iremos enviar para nossa API/Webhook, nesse caso é o _JSON_:
+
+
+```
+{
+   "mensagem":"Olá Mundo!! Olá Webhook"
+}
+```
 
 ## Brincando com o Webhook
 
@@ -108,7 +136,6 @@ Se tudo funcionar você irá ver uma tela assim:
 Se você seguiu tudo até agora parabéns você tem um webhook no ar! Agora vamos expor ele para a Internet assim seus colegas vão conseguir consumir o mesmo.
 
 Instale o Ngrok com:
-
 
 Linux:
 
@@ -125,6 +152,7 @@ cd /usr/local/bin
 ln -s /Applications/ngrok ngrok
 ```
 
+O Ngrok é um serviço que ajuda você a expor um determinado protocolo nesse caso _**http**_ para a internet, assim qualquer um irá conseguir acessar utilizando um dominio.
 
 Agora exponha seu serviço para internet usando:
 
@@ -133,8 +161,19 @@ Agora exponha seu serviço para internet usando:
 ngrok http 5000
 ```
 
+Algo assim irá aparecer:
 
-O Ngrok é um serviço que ajuda você a expor um determinado protocolo nesse caso _**http**_ para a internet, assim qualquer um irá conseguir acessar utilizando um dominio.
+
+![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/Dia1_ngrok.png?raw=true "Webhook")
+
+Isso significa que você está redirecionando o Flask para o ngrok, que te gerou um dominio temporário externo e você compartilhar para seus amigos o mesmo!
+
+Agora pegue sua URL e mande para seus amigos e enviem qualquer tipo de mensagem!
+
+
+
+
+
 
 
 
