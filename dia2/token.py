@@ -5,7 +5,6 @@ import requests
 app = Flask(__name__)
 
 url_base = 'http://gilab.webhook/gitlab/api/v4/' ## uso posterior
-gitlab_headers = {"PRIVATE-TOKEN": "JoPz-9mQUX896yg1Udzb"} ## Header para ser enviado ao Gitlab
 
 @app.route('/webhook', methods=['POST'])  # Aqui estamos criando o decorador "route" do Flask, ele irá criar uma rota - http://localhost:5000/webhook
 def webhook():                            # Defininindo a função webhook
