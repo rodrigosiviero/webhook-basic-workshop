@@ -197,6 +197,36 @@ Vamos primeiramente testar!
 Volte ao Gitlab e clique em edit no seu webhook, após isso vá até o topo da página e adicione em _**Secret**_ _**Token**_ um token qualquer:
 
 
-
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/tokensecret.png?raw=true "Webhook")
 
+
+Agora vamos editar nosso webhook para que ele verifique o token enviado:
+
+```
+from flask import Flask, request, abort   # Imports do Flask
+
+app = Flask(__name__) # Instância do Flask chamada app
+
+url_base = 'http://gilab.webhook/gitlab/api/v4/' ## URL do Gitlab
+gitlab_http_token = "teste" ## token recebido do Gitlab
+
+@app.route('/webhook', methods=['POST'])  # Aqui estamos criando o decorador "route" do Flask, ele irá criar uma rota - http://localhost:5000/webhook
+def webhook():                            # Defininindo a função webhook
+    if (request.method == 'POST') and (request.headers.get('X-Gitlab-Token') == gitlab_http_token): # Se o request vindo for POST e o Header correto entre na condição.
+        print(request.json)               # Simplesmente iremos voltar o request com os dados que estão vindo
+        return '', 200                    # Retorne 200
+    else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
+        abort(400, 'Your HTTP Secret token is wrong or this is not a POST request')              
+
+if __name__ == '__main__':
+    app.run()
+```
+
+Agora rode ele e teste novamente o seu webhook via Gitlab:
+
+Você provavelmente receberá uma mensagem:
+
+![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/wrongtoken.png?raw=true "Webhook")
+
+
+Agora pare seu Flask e coloque exatamente a senha que foi colocada na Interface do Gitlab no seu código e você deverá ver novamente o conteúdo e agora autenticado!
