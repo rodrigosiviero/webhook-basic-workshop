@@ -4,8 +4,7 @@ import requests
 
 app = Flask(__name__)
 
-url_base = 'https://alcs.accenture.com/gitlab/api/v4/'
-gitlab_headers = {"PRIVATE-TOKEN": "JoPz-9mQUX896yg1Udzb"}
+url_base = 'https://gitlab.webhook/gitlab/api/v4/'
 
 @app.route('/webhook', methods=['POST'])
 def webhook():

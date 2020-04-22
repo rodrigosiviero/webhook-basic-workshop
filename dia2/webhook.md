@@ -117,8 +117,86 @@ Se você fez tudo certo você irá ver que seu webhook printou um push event do 
 
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/pushtest.png?raw=true "Webhook")
 
+Parabéns, agora você sabe criar e usar um webhook no Gitlab :)
 
+Segue o Json formatado para que possamos entender um pouco melhor oque está sendo retornado:
 
  
+```
+ {
+    'object_kind': 'push',
+    'event_name': 'push',
+    'before': '72bf45d83be8c362604d8fd7ab7873c45aaf3cdd',
+    'after': '72bf45d83be8c362604d8fd7ab7873c45aaf3cdd',
+    'ref': 'refs/heads/master',
+    'checkout_sha': '72bf45d83be8c362604d8fd7ab7873c45aaf3cdd',
+    'message': None,
+    'user_id': 1,
+    'user_name': 'Administrator',
+    'user_username': 'root',
+    'user_email': '',
+    'user_avatar': 'https://secure.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=80&d=identicon',
+    'project_id': 1,
+    'project': {
+        'id': 1,
+        'name': 'Webhook',
+        'description': '',
+        'web_url': 'https://gitlab.webhook/root/webhook',
+        'avatar_url': None,
+        'git_ssh_url': 'git@gitlab.webhook:root/webhook.git',
+        'git_http_url': 'https://gitlab.webhook/root/webhook.git',
+        'namespace': 'Administrator',
+        'visibility_level': 20,
+        'path_with_namespace': 'root/webhook',
+        'default_branch': 'master',
+        'ci_config_path': None,
+        'homepage': 'https://gitlab.webhook/root/webhook',
+        'url': 'git@gitlab.webhook:root/webhook.git',
+        'ssh_url': 'git@gitlab.webhook:root/webhook.git',
+        'http_url': 'https://gitlab.webhook/root/webhook.git'
+    },
+    'commits': [{
+        'id': '72bf45d83be8c362604d8fd7ab7873c45aaf3cdd',
+        'message': 'Initial commit',
+        'title': 'Initial commit',
+        'timestamp': '2020-04-22T18:30:16+00:00',
+        'url': 'https://gitlab.webhook/root/webhook/-/commit/72bf45d83be8c362604d8fd7ab7873c45aaf3cdd',
+        'author': {
+            'name': 'Administrator',
+            'email': 'admin@example.com'
+        },
+        'added': ['README.md'],
+        'modified': [],
+        'removed': []
+    }],
+    'total_commits_count': 1,
+    'push_options': {},
+    'repository': {
+        'name': 'Webhook',
+        'url': 'git@gitlab.webhook:root/webhook.git',
+        'description': '',
+        'homepage': 'https://gitlab.webhook/root/webhook',
+        'git_http_url': 'https://gitlab.webhook/root/webhook.git',
+        'git_ssh_url': 'git@gitlab.webhook:root/webhook.git',
+        'visibility_level': 20
+    }
+}
+```
 
+Perfeito! Vamos seguir para a próxima parte!
+
+
+## Autenticando o Webhook
+
+A partir deste ponto iremos trabalhar como a primeira versão de webhook fizemos, se você tiver em dúvida veja o dia1/webhook.py.
+
+A primeira coisa para melhorarmos no nosso webhook é a autenticação, felizmente o Gitlab já nos presenteia com uma verificação via HTTP Header.
+
+Vamos primeiramente testar!
+
+Volte ao Gitlab e clique em edit no seu webhook, após isso vá até o topo da página e adicione em _**Secret**_ _**Token**_ um token qualquer:
+
+
+
+![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/tokensecret.png?raw=true "Webhook")
 
