@@ -179,11 +179,6 @@ unzip ngrok-stable-linux-amd64.zip
 MacOS:
 ```
 brew cask install ngrok
-```
-
-Caso não esteja com link simbolico use:
-
-```
 cd /usr/local/bin
 ln -s /Applications/ngrok ngrok
 ```
@@ -206,11 +201,6 @@ Isso significa que você está redirecionando o Flask para o ngrok, que te gerou
 
 Agora pegue sua URL e mande para seus amigos e enviem qualquer tipo de mensagem!
 
-Para você testar no endpoint de outros mande o seguinte:
-
-```
-curl -H "Content-Type: application/json" -X POST -d '{"nome": "Rodrigo", "mensagem": "Olá Mundo!! Olá Webhook"}' 127.0.0.1:5000/webhook
-```
 
 Agora temos diversas pessoas mandando diversos posts para diversos webhooks distintos, temos mais ou menos algo assim:
 

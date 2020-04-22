@@ -23,6 +23,7 @@ Esse workshop será dividido em 2 dias:
 
 ### Segundo dia
 
+* Gitlab
 * Autenticando meu webhook
 * Utilizando webhook
 * Zappa
@@ -47,3 +48,4 @@ Agora que você está com tudo pronto vamos para o dia 1!
 * https://ogma-dev.github.io/posts/simple-flask-webhook/
 * https://en.wikipedia.org/wiki/Webhook
 * https://docs.gitlab.com/ce/api/
+* https://flask.palletsprojects.com/en/1.1.x/
