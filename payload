@@ -31,12 +31,12 @@
 		'author_id': 1,
 		'change_position': None,
 		'commit_id': None,
-		'created_at': '2020-04-23T15:00:46.204Z',
-		'discussion_id': '7141a9f1ad888db5ef8a695148264b96c079afec',
-		'id': 1,
+		'created_at': '2020-04-23 19:33:39 UTC',
+		'discussion_id': '00c50c6115709a5faf271c618da4ad50472e0da8',
+		'id': 58,
 		'line_code': None,
-		'note': 'teste',
-		'noteable_id': 1,
+		'note': 'Approved',
+		'noteable_id': 5,
 		'noteable_type': 'MergeRequest',
 		'original_position': None,
 		'position': None,
@@ -47,10 +47,10 @@
 		'st_diff': None,
 		'system': False,
 		'type': None,
-		'updated_at': '2020-04-23T15:00:46.204Z',
+		'updated_at': '2020-04-23 19:33:39 UTC',
 		'updated_by_id': None,
-		'description': 'teste',
-		'url': 'https://gitlab.webhook/root/webhook/-/merge_requests/1#note_1'
+		'description': 'Approved',
+		'url': 'https://gitlab.webhook/root/webhook/-/merge_requests/5#note_58'
 	},
 	'repository': {
 		'name': 'Webhook',
@@ -59,13 +59,13 @@
 		'homepage': 'https://gitlab.webhook/root/webhook'
 	},
 	'merge_request': {
-		'assignee_id': 1,
-		'author_id': 1,
-		'created_at': '2020-04-23T14:42:28.964Z',
-		'description': '',
+		'assignee_id': None,
+		'author_id': 34,
+		'created_at': '2020-04-23 19:18:00 UTC',
+		'description': 'This reverts merge request !4',
 		'head_pipeline_id': None,
-		'id': 1,
-		'iid': 1,
+		'id': 5,
+		'iid': 5,
 		'last_edited_at': None,
 		'last_edited_by_id': None,
 		'merge_commit_sha': None,
@@ -77,16 +77,16 @@
 		'merge_user_id': None,
 		'merge_when_pipeline_succeeds': False,
 		'milestone_id': None,
-		'source_branch': 'develop',
+		'source_branch': 'revert-0356ddbe',
 		'source_project_id': 1,
 		'state_id': 1,
-		'target_branch': 'master',
+		'target_branch': 'develop',
 		'target_project_id': 1,
 		'time_estimate': 0,
-		'title': 'Update README.md',
-		'updated_at': '2020-04-23T15:00:46.218Z',
+		'title': 'Revert "Merge branch \'revert-39167995\' into \'develop\'"',
+		'updated_at': '2020-04-23 19:33:39 UTC',
 		'updated_by_id': None,
-		'url': 'https://gitlab.webhook/root/webhook/-/merge_requests/1',
+		'url': 'https://gitlab.webhook/root/webhook/-/merge_requests/5',
 		'source': {
 			'id': 1,
 			'name': 'Webhook',
@@ -124,14 +124,14 @@
 			'http_url': 'https://gitlab.webhook/root/webhook.git'
 		},
 		'last_commit': {
-			'id': '492726cb42bd395d1d02ebea0269265d575bb98d',
-			'message': 'Update README.md',
-			'title': 'Update README.md',
-			'timestamp': '2020-04-23T14:42:12+00:00',
-			'url': 'https://gitlab.webhook/root/webhook/-/commit/492726cb42bd395d1d02ebea0269265d575bb98d',
+			'id': '67dff06dba7ddb16915686c20c97adffa20ef448',
+			'message': 'Revert "Merge branch \'revert-39167995\' into \'develop\'"\n\nThis reverts merge request !4',
+			'title': 'Revert "Merge branch \'revert-39167995\' into \'develop\'"',
+			'timestamp': '2020-04-23T19:17:55+00:00',
+			'url': 'https://gitlab.webhook/root/webhook/-/commit/67dff06dba7ddb16915686c20c97adffa20ef448',
 			'author': {
-				'name': 'Administrator',
-				'email': 'admin@example.com'
+				'name': 'rodrigo',
+				'email': 'rodrigo@rodrigo.com'
 			}
 		},
 		'work_in_progress': False,
@@ -139,7 +139,6 @@
 		'human_total_time_spent': None,
 		'human_time_estimate': None,
 		'assignee_ids': [
-			1
 		],
 		'state': 'opened'
 	}
