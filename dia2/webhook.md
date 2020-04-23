@@ -693,9 +693,6 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 Pois estamos em um servidor sem Certificado!
 
-## Fazendo Deploy na AWS
-
-
 
 
 
