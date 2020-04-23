@@ -230,3 +230,300 @@ Você provavelmente receberá uma mensagem:
 
 
 Agora pare seu Flask e coloque exatamente a senha que foi colocada na Interface do Gitlab no seu código e você deverá ver novamente o conteúdo e agora autenticado!
+
+## Aprovando um merge request
+
+Agora vamos de fato fazer um webhook que interaja com o Gitlab, para isso precisamos primeiro fazer algumas configurações no nosso projeto.
+
+* Desabilite no Autodevops em:
+  * Settings > CI/CD
+* Crie uma nova branch chamada _**develop**_
+  * Repository > + > New branch
+
+
+Perfeito! Agora temos como fazer um Merge request!
+
+Crie uma modificação qualquer no README em _**develop**_ e depois crie um merge request para _**master**_.
+
+
+Você terá algo assim:
+
+![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/mr.png?raw=true "Webhook")
+
+
+
+Perfeito! Agora vamos começar nosso webhook para aprovação de Merge Requests!
+
+A primeira coisa que faremos é testar nosso Webhook novamente agora com oque precisamos de fato consumir que será comentário, o funcionamento será o seguinte:
+
+
+1. Usuário A cria MR
+2. Usuário B revisa o MR
+3. Usuário B comenta no MR - "Aprovado"
+4. Webhook aceita o merge
+
+
+Quais as condições para que isso aconteça via webhook?
+
+1. o Comentário precisa vir de um MR
+2. O Usuário que criou o MR não pode aprovar o próprio MR
+3. O MR precisa ser "mergeavel"
+4. String do comentário precisa ser "Aprovado"
+
+
+Se todas essas condições passarem o webhook irá fazer o MR.
+
+
+Ok Vamos lá!
+
+Só para relembrar iremos começar trabalhar em um arquivo novo com o conteúdo do nosso webhook_secret.py:
+
+```
+from flask import Flask, request, abort   # Imports do Flask
+
+app = Flask(__name__) # Instância do Flask chamada app
+
+url_base = 'http://gilab.webhook/gitlab/api/v4/' ## uso posterior
+gitlab_http_token = "teste"
+
+@app.route('/webhook', methods=['POST'])  # Aqui estamos criando o decorador "route" do Flask, ele irá criar uma rota - http://localhost:5000/webhook
+def webhook():                            # Defininindo a função webhook
+    if (request.method == 'POST') and (request.headers.get('X-Gitlab-Token') == gitlab_http_token): # Se o request vindo for POST e o Header correto entre na condição.
+        print(request.json)               # Simplesmente iremos voltar o request com os dados que estão vindo
+        return '', 200                    # Retorne 200
+    else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
+        abort(400, 'Your HTTP Secret token is wrong or this is not a POST request')              
+
+if __name__ == '__main__':
+    app.run()
+```
+
+
+1. Inicie o Flask
+2. Inicie o ngrok
+3. Tenha certeza que seu webhook está consumindo a url do ngrok.
+4. Comente no seu próprio MR
+5. Vá Até o terminal do Flask e copie seu JSON
+6. Cole ele em um arquivo e deixe ele identado para facilitar
+
+
+Perfeito! Agora temos nosso payload com oque iremos trabalhar, vamos verificar a primeira condição que definimos lá em cima
+
+
+### O Comentário precisa vir de um MR
+
+Beleza, temos nosso payload e precisamos verificar se o webhook enviou o nosso payload e ele veio de fato de um Merge Request, lembrando que qualquer tipo de comentário ativara nosso webhook então é importante fazer esse tratamento :)
+
+
+Estamos procurando dentro do payload o dicionário: merge_request se ele tiver essa estrutura muito provavelmente seu webhook te enviou um comentário que está dentro de um merge_request, então vamos primeiro tratar o payload e assinalar uma variável para esse MR.
+
+```
+from flask import Flask, request, abort   # Imports do Flask
+
+app = Flask(__name__) # Instância do Flask chamada app
+
+url_base = 'http://gilab.webhook/gitlab/api/v4/' ## uso posterior
+gitlab_http_token = "teste"
+
+@app.route('/webhook', methods=['POST'])  # Aqui estamos criando o decorador "route" do Flask, ele irá criar uma rota - http://localhost:5000/webhook
+def webhook():                            # Defininindo a função webhook
+    if (request.method == 'POST') and (request.headers.get('X-Gitlab-Token') == gitlab_http_token): # Se o request vindo for POST e o Header correto entre na condição.
+        #print(request.json)               # Simplesmente iremos voltar o request com os dados que estão vindo
+        json_payload = request.json        # Assinalando o request.json para uma variável
+        mr_iid = json_payload['merge_request']['iid'] # Aqui iremos assinalar o conteudo do merge_request -> iid para a variável
+        if mr_iid:
+            print(f'Esse Webhook é de um Merge_request com Internal ID: {mr_iid}')
+        else:
+            print('Erro')
+        return '', 200                    # Retorne 200
+    else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
+        abort(400, 'Your HTTP Secret token is wrong or this is not a POST request')              
+
+if __name__ == '__main__':
+    app.run()
+```
+
+
+Você deverá ver no terminal do Flask:
+
+```
+Esse Webhook é de um Merge_request com Internal ID: 1
+127.0.0.1 - - [23/Apr/2020 12:33:59] "POST /webhook HTTP/1.1" 200 -
+```
+
+
+Beleza! Temos nossa primeira condição completa! Vamos para a segunda.
+
+### O Usuário que criou o MR não pode aprovar o próprio MR
+
+Faremos a mesma coisa, precisamos agora:
+
+* Achar o Autor do MR
+* Achar o Autor do Comentário
+* Checar se um é diferente do outro
+
+Seguindo o mesmo passos iremos analisar a estrutura e achar o autor do Comentário e o autor do MR para comparar, para fazer este teste eu criei um novo user no Gitlab, fiz impersonate e comentei no MR.
+
+
+Object attributes são os atributos do comentário então o nosso autor tem ID 34
+```
+	'object_attributes': { 
+		'attachment': None,
+		'author_id': 34,
+		'change_position': None,
+		'commit_id': None,
+```
+
+Merge request são os atributos do MR então o author_id é 1
+
+```
+	'merge_request': {
+		'assignee_id': 1,
+		'author_id': 1,
+		'created_at': '2020-04-23 14:42:28 UTC',
+		'description': '',
+		'head_pipeline_id': None,
+		'id': 1,
+```
+
+Utilizando a mesma lógica iremos:
+
+* Assinalar os valores para variáveis
+* Checar um com outro
+
+
+Vai ficar assim:
+
+
+```
+from flask import Flask, request, abort   # Imports do Flask
+
+app = Flask(__name__) # Instância do Flask chamada app
+
+url_base = 'http://gilab.webhook/gitlab/api/v4/' ## uso posterior
+gitlab_http_token = "teste"
+
+@app.route('/webhook', methods=['POST'])  # Aqui estamos criando o decorador "route" do Flask, ele irá criar uma rota - http://localhost:5000/webhook
+def webhook():                            # Defininindo a função webhook
+    if (request.method == 'POST') and (request.headers.get('X-Gitlab-Token') == gitlab_http_token): # Se o request vindo for POST e o Header correto entre na condição.
+        print(request.json)               # Simplesmente iremos voltar o request com os dados que estão vindo
+        json_payload = request.json        # Assinalando o request.json para uma variável
+        mr_iid = json_payload['merge_request']['iid'] # Aqui iremos assinalar o conteudo do merge_request -> iid para a variável
+        mr_author = json_payload['merge_request']['author_id']
+        note_author = json_payload['object_attributes']['author_id']
+        mr_status = json_payload['merge_request']['merge_status']
+        if mr_iid:
+            print(f'Esse Webhook é de um Merge_request com Internal ID: {mr_iid}')
+            if mr_author is not note_author:
+                print(f'Autor do MR: {mr_author} e o Autor do Comentário: {note_author}')
+            else:
+                print('O Autor do MR não pode aprovar o próprio MR')
+        else:
+            print('Erro')
+        return '', 200                    # Retorne 200
+    else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
+        abort(400, 'Seu Token está errado ou isso não é um POST')              
+
+if __name__ == '__main__':
+    app.run()
+
+```
+
+Se tudo deu certo seu output será:
+
+```
+Esse Webhook é de um Merge_request com Internal ID: 1
+Autor do MR: 1 e o Autor do Comentário: 34
+```
+
+Ou
+
+```
+Esse Webhook é de um Merge_request com Internal ID: 1
+O Autor do MR não pode aprovar o próprio MR
+```
+
+Beleza agora temos a 2 condição pronta, vamos seguir.
+
+
+### MR é "mergeavel"
+
+* Checar se o MR é mergeavel
+
+Novamente essa parte é fácil, precisamos pegar do dicionário merge_request se o status dele é mergeavel:
+
+```
+		'merge_status': 'can_be_merged',
+		'merge_user_id': None,
+		'merge_when_pipeline_succeeds': False,
+		'milestone_id': None,
+```
+
+Pegaremos o merge_status usando o mesmo processo de antes:
+
+```
+from flask import Flask, request, abort   # Imports do Flask
+
+app = Flask(__name__) # Instância do Flask chamada app
+
+url_base = 'http://gilab.webhook/gitlab/api/v4/' ## uso posterior
+gitlab_http_token = "teste"
+
+@app.route('/webhook', methods=['POST'])  # Aqui estamos criando o decorador "route" do Flask, ele irá criar uma rota - http://localhost:5000/webhook
+def webhook():                            # Defininindo a função webhook
+    if (request.method == 'POST') and (request.headers.get('X-Gitlab-Token') == gitlab_http_token): # Se o request vindo for POST e o Header correto entre na condição.
+        print(request.json)               # Simplesmente iremos voltar o request com os dados que estão vindo
+        json_payload = request.json        # Assinalando o request.json para uma variável
+        mr_iid = json_payload['merge_request']['iid'] # Aqui iremos assinalar o conteudo do merge_request -> iid para a variável
+        mr_author = json_payload['merge_request']['author_id']
+        note_author = json_payload['object_attributes']['author_id']
+        mr_status = json_payload['merge_request']['merge_status']
+        if mr_iid:
+            print(f'Esse Webhook é de um Merge_request com Internal ID: {mr_iid}')
+            if mr_author is not note_author:
+                print(f'Autor do MR: {mr_author} e o Autor do Comentário: {note_author}')
+                if mr_status == 'can_be_merged':
+                    print('Esse MR pode ser Mergeado')
+                else:
+                    print('Esse MR não pode ser Mergeado')
+            else:
+                print('O Autor do MR não pode aprovar o próprio MR')
+        else:
+            print('Erro')
+        return '', 200                    # Retorne 200
+    else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
+        abort(400, 'Seu Token está errado ou isso não é um POST')              
+
+if __name__ == '__main__':
+    app.run()
+
+```
+
+
+Boa! Se você fez tudo certo até agora você verá:
+
+Esse Webhook é de um Merge_request com Internal ID: 1
+Autor do MR: 1 e o Autor do Comentário: 34
+Esse MR pode ser Mergeado
+
+
+### Checar o comentário
+
+Finalmente vamos checar o comentário e Interagir com o Gitlab de fato via API, até então só estavamos checando
+
+Se o comentário for: "Aprovado!!!" iremos aprovar o MR se não iremos retornar uma mensagem que não foi possível realizar o mesmo.
+
+Para isso vamos usar o requests para realizar as chamadas da API e teremos que utilizar um token para realizar essas chamadas.
+
+
+
+
+
+
+
+
+
+
+
+
+
