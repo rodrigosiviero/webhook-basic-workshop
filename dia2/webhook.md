@@ -7,9 +7,6 @@ Olá, esse será o dia 2 do nosso workshop básico, nele iremos:
 * Testar nosso webhook atual
 * Autenticar nosso Webhook
 * Criando um webhook para Interagir com Gitlab
-* Zappa
-* Fazendo Deploy na AWS
-
 
 ## Gitlab
 
@@ -692,6 +689,10 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 ```
 
 Pois estamos em um servidor sem Certificado!
+
+É isso por enquanto!
+
+Em  breve Dia 3 e 4!
 
 
 
