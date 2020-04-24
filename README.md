@@ -26,9 +26,16 @@ Esse workshop será dividido em 2 dias:
 * Gitlab
 * Autenticando meu webhook
 * Utilizando webhook
+
+### Terceiro dia (TBD)
+
 * Zappa
 * Fazendo deploy do webhook
 
+### Quarto dia (TBD)
+
+* Refactor
+* Testes
 
 Para que possamos fazer o workshop é necessário:
 
