@@ -690,16 +690,11 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 Pois estamos em um servidor sem Certificado!
 
-É isso por enquanto!
+É isso por enquanto, ficamos com o resultado final desse jeito:
+
+
+![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/dia2_final.png?raw=true "Webhook")
+
+
 
 Em  breve Dia 3 e 4!
-
-
-
-
-
-
-
-
-
-
