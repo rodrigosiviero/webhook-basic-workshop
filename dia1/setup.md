@@ -60,7 +60,7 @@ pip install flask requests
 Vamos agora criar nosso webhook, ele será simples e não irá fazer basicamente nada agora!
 
 
-Abra seu editor preferido e crie um arquivo chamado webhook.py, em seguida vamos copiar e colar o seguinte conteudo:
+Abra seu editor preferido e crie um arquivo chamado webhook.py, em seguida vamos copiar e colar o seguinte conteúdo:
 
 
 ```
@@ -119,7 +119,7 @@ Se você agora olhar no terminal aonde está rodando o servidor você deverá ve
 
 Nesse comando estamos passando o -H que é o Header do request como Content-Type, ele serve para indicar para o servidor que estamos mandando um payload do tipo _JSON_.
 
-O próximo parametro -X POST é o tipo de HTTP request, como nosso webhook só aceita POST iremos usar somente ele aqui.
+O próximo parâmetro  -X POST é o tipo de HTTP request, como nosso webhook só aceita POST iremos usar somente ele aqui.
 
 E finalmente passamos o -d, que é de data, ele indica o payload que iremos enviar para nossa API/Webhook, nesse caso é o _JSON_:
 
@@ -134,7 +134,7 @@ E finalmente passamos o -d, que é de data, ele indica o payload que iremos envi
 ## Modificando webhook.
 
 
-Beleza, agora temos um webhook/API no ar, precisamos preparar ele agora para o próximo passo, vamos deixar mais agradavel a leitura para quem for receber o payload, para isso precisamos instalar o requests, caso você ainda não tenha feito, faça agora.
+Beleza, agora temos um webhook/API no ar, precisamos preparar ele agora para o próximo passo, vamos deixar mais agradável a leitura para quem for receber o payload, para isso precisamos instalar o requests, caso você ainda não tenha feito, faça agora.
 
 
 Esse é o código:
@@ -183,7 +183,7 @@ cd /usr/local/bin
 ln -s /Applications/ngrok ngrok
 ```
 
-O Ngrok é um serviço que ajuda você a expor um determinado protocolo nesse caso _**http**_ para a internet, assim qualquer um irá conseguir acessar utilizando um dominio.
+O Ngrok é um serviço que ajuda você a expor um determinado protocolo nesse caso _**http**_ para a internet, assim qualquer um irá conseguir acessar utilizando um domínio.
 
 Agora exponha seu serviço para internet usando:
 
@@ -197,7 +197,7 @@ Algo assim irá aparecer:
 
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/Dia1_ngrok.png?raw=true "Webhook")
 
-Isso significa que você está redirecionando o Flask para o ngrok, que te gerou um dominio temporário externo e você compartilhar para seus amigos o mesmo!
+Isso significa que você está redirecionando o Flask para o ngrok, que te gerou um domínio temporário externo e você compartilhar para seus amigos o mesmo!
 
 Agora pegue sua URL e mande para seus amigos e enviem qualquer tipo de mensagem!
 
@@ -210,6 +210,6 @@ Agora temos diversas pessoas mandando diversos posts para diversos webhooks dist
 
 # Dia 2
 
-Agora que você terminou(ou não), vamos para o dia 2! Caso você não tenha terminado os arquivos estão na pasta do dia1!
+Agora que você terminou (ou não), vamos para o dia 2! Caso você não tenha terminado os arquivos estão na pasta do dia1!
 
 [CLIQUE AQUI!](../dia2/webhook.md)
