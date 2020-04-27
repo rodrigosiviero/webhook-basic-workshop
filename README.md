@@ -1,6 +1,6 @@
 # Webhook Workshop Básico
 
-Nessa workshop falaremos sobre:
+Nesse workshop falaremos sobre:
 
 * Webhooks
 * Como construir um usando Python3
