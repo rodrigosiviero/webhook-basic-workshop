@@ -116,7 +116,7 @@ Se você fez tudo certo você irá ver que seu webhook printou um push event do 
 
 Parabéns, agora você sabe criar e usar um webhook no Gitlab :)
 
-Segue o Json formatado para que possamos entender um pouco melhor oque está sendo retornado:
+Segue o Json formatado para que possamos entender um pouco melhor o que está sendo retornado:
 
  
 ```
@@ -251,7 +251,7 @@ Você terá algo assim:
 
 Perfeito! Agora vamos começar nosso webhook para aprovação de Merge Requests!
 
-A primeira coisa que faremos é testar nosso Webhook novamente agora com oque precisamos de fato consumir que será comentário, o funcionamento será o seguinte:
+A primeira coisa que faremos é testar nosso Webhook novamente agora com o que precisamos de fato consumir que será comentário, o funcionamento será o seguinte:
 
 
 1. Usuário A cria MR
