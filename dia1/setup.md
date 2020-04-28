@@ -53,7 +53,6 @@ pip install flask requests
 ```
 
 
-
 ## Criando meu primeiro Webhook
 
 
@@ -79,14 +78,12 @@ def webhook():                            # Defininindo a função webhook
 
 if __name__ == '__main__':                # Função Main
     app.run()                             # Executando de fato o script
-
 ```
 
 Para executar seu servidor Flask, simplesmente execute no terminal:
 
 ```
 python webhook.py
-
 ```
 
 Se tudo funcionar você irá ver uma tela assim:
@@ -94,13 +91,11 @@ Se tudo funcionar você irá ver uma tela assim:
 
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/flask.png?raw=true "Webhook")
 
-
 ## Consumindo seu webhook
 
 Se você rodou o servidor do flask e tem sua API no ar, chegou a hora de testarmos!
 
 Abra um **outro** terminal e execute o seguinte:
-
 
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"mensagem": "Olá Mundo!! Olá Webhook"}' 127.0.0.1:5000/webhook
@@ -112,7 +107,9 @@ No momento de execução você deve receber um:
 {"status":"success"}
 ```
 
-Se você agora olhar no terminal aonde está rodando o servidor você deverá ver a requisição que acabou de fazer!
+Obs.: se não receber o retorno acima, execute o `curl` com o `-i` para ter o retorno.
+
+Agora voltando ao terminal aonde está rodando o servidor você deverá ver a requisição que acabou de fazer!
 
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/olamundo.png?raw=true "Webhook")
 
@@ -130,15 +127,11 @@ E finalmente passamos o -d, que é de data, ele indica o payload que iremos envi
 }
 ```
 
-
 ## Modificando webhook.
-
 
 Beleza, agora temos um webhook/API no ar, precisamos preparar ele agora para o próximo passo, vamos deixar mais agradável a leitura para quem for receber o payload, para isso precisamos instalar o requests, caso você ainda não tenha feito, faça agora.
 
-
 Esse é o código:
-
 
 ```
 from flask import Flask, request, abort   # Imports do Flask
@@ -161,6 +154,11 @@ if __name__ == '__main__':                # Função Main
     app.run()                             # Executando de fato o script
 ```
 
+Execute o `python` com o código acima e, em seguida, faça a chamada:
+
+```
+curl -H "Content-Type: application/json" -X POST -d '{"nome": "Fulano", "mensagem": "Olá Mundo!! Olá Webhook"}' 127.0.0.1:5000/webhook
+```
 
 ## Brincando com o Webhook
 
@@ -179,8 +177,6 @@ unzip ngrok-stable-linux-amd64.zip
 MacOS:
 ```
 brew cask install ngrok
-cd /usr/local/bin
-ln -s /Applications/ngrok ngrok
 ```
 
 O Ngrok é um serviço que ajuda você a expor um determinado protocolo nesse caso _**http**_ para a internet, assim qualquer um irá conseguir acessar utilizando um domínio.
@@ -199,11 +195,13 @@ Algo assim irá aparecer:
 
 Isso significa que você está redirecionando o Flask para o ngrok, que te gerou um domínio temporário externo e você compartilhar para seus amigos o mesmo!
 
-Agora pegue sua URL e mande para seus amigos e enviem qualquer tipo de mensagem!
+Agora pegue sua URL, mande para seus amigos e enviem qualquer tipo de mensagem utilizando o último `curl` que executamos, alterando a url para o endereço do seu ngronk, exemplo:
 
+```
+curl -H "Content-Type: application/json" -X POST -d '{"nome": "Beltrano", "mensagem": "Olá!"}' http://04790bb7.ngrok.io/webhook
+```
 
 Agora temos diversas pessoas mandando diversos posts para diversos webhooks distintos, temos mais ou menos algo assim:
-
 
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/final_day1.png?raw=true "Webhook")
 
