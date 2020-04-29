@@ -59,11 +59,11 @@ http://gitlab.webhook
 
 Já que não temos certificado usando o Chrome no meu caso clique em avançado e aceite proceder ao site mesmo sem certificado.
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/cert1.png?raw=true "Webhook")
+![alt text](../images/cert1.png?raw=true "Webhook")
 
 Agora você irá preencher a senha do root caso seja a primeira vez que esteja subindo o Gitlab, coloque uma senha e depois logue como usuário: **_root_**
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/signin.png?raw=true "Webhook")
+![alt text](../images/signin.png?raw=true "Webhook")
 
 Beleza!
 
@@ -77,7 +77,7 @@ Voltando para o Gitlab:
 * Clique em Initialize repository with a README
 * Clique em _**Create Project**_
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/createproject.png?raw=true "Webhook")
+![alt text](../images/createproject.png?raw=true "Webhook")
 
 ## Testando Webhook
 
@@ -92,7 +92,7 @@ Abra seu repositório e do lado esquerdo clique em:
 * Disabilite o enable ssl verification
 * Add Hook
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/addwebhook.png?raw=true "Webhook")
+![alt text]../images/addwebhook.png?raw=true "Webhook")
 
 Se tudo der certo você terá um webhook adicionado no Gitlab,  agora podemos testar! :)
 
@@ -183,7 +183,7 @@ Vamos primeiramente testar!
 
 Volte ao Gitlab e clique em edit no seu webhook, após isso vá até o topo da página e adicione em _**Secret**_ _**Token**_ um token qualquer:
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/tokensecret.png?raw=true "Webhook")
+![alt text]../images/tokensecret.png?raw=true "Webhook")
 
 Agora vamos editar nosso `webhook.py` para que ele verifique o token enviado:
 
@@ -209,7 +209,7 @@ if __name__ == '__main__':
 
 Rode ele e teste novamente o seu webhook via Gitlab. Você provavelmente receberá uma mensagem:
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/wrongtoken.png?raw=true "Webhook")
+![alt text]../images/wrongtoken.png?raw=true "Webhook")
 
 
 Agora pare seu Flask, coloque exatamente a senha que foi colocada na interface do Gitlab no seu código, execute ele novamente, faça o teste na interface do Gitlab e você deverá ver novamente o conteúdo e agora autenticado!
@@ -233,7 +233,7 @@ Crie uma modificação qualquer no README em _**develop**_ e depois crie um merg
 
 Você terá algo assim:
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/mr.png?raw=true "Webhook")
+![alt text]../images/mr.png?raw=true "Webhook")
 
 Perfeito! Agora vamos começar nosso webhook para aprovação de Merge Requests!
 
@@ -548,7 +548,7 @@ Pronto, agora estamos checando todas as condições previstas, vamos ao próximo
 
 Até agora temos:
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/dia2_diagram1.png?raw=true "Webhook")
+![alt text]../images/dia2_diagram1.png?raw=true "Webhook")
 
 ### Interagindo com o Gitlab
 
@@ -556,13 +556,13 @@ Finalmente vamos interagir com o Gitlab de fato via API, para isso vamos usar o 
 
 Primeiramente precisamos setar nossa url do gitlab e o header que passaremos que será o Private Token que criaremos:
 
-1 - Clique em seu avatar no canto superior direito e em settings
-2 - Na sidebar do lado esquerdo clique `Access Tokens`
-3 - Dê um nome ao seu token e selecione as opções conforme a imagem abaixo
+1. Clique em seu avatar no canto superior direito e em settings
+2. Na sidebar do lado esquerdo clique `Access Tokens`
+3. Dê um nome ao seu token e selecione as opções conforme a imagem abaixo
 
-![alt text](../images/api-token.png "api-token")
+![alt text](../images/api-token.png)
 
-4 - Guarde o token gerado em algum local
+4. - Guarde o token gerado em algum local
 
 Coloque no começo do seu arquivo logo abaixo da definição do app.
 
@@ -658,6 +658,6 @@ Pois estamos em um servidor sem Certificado!
 
 É isso por enquanto, ficamos com o resultado final desse jeito:
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/dia2_final.png?raw=true "Webhook")
+![alt text]../images/dia2_final.png?raw=true "Webhook")
 
 Em  breve Dia 3 e 4!
