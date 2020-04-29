@@ -4,8 +4,7 @@ web:
   hostname: 'gitlab.webhook'
   environment:
     GITLAB_OMNIBUS_CONFIG: |
-      external_url 'https://gitlab.webhook'
-      # Add any other gitlab.rb configuration here, each on its own line
+      external_url 'http://localhost'
   ports:
     - '80:80'
     - '443:443'

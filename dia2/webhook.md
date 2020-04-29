@@ -2,7 +2,6 @@
 
 Olá, esse será o dia 2 do nosso workshop básico, nele iremos:
 
-
 * Subir um Gitlab
 * Testar nosso webhook atual
 * Autenticar nosso Webhook
@@ -53,7 +52,6 @@ No meu caso ficou:
 172.17.0.2 gitlab.webhook
 ```
 
-
 Agora acesse:
 
 http://gitlab.webhook
@@ -69,8 +67,7 @@ Agora você irá preencher a senha do root caso seja a primeira vez que esteja s
 
 Beleza!
 
-Agora estamos dentro do Gitlab, vamos criar um repositório para testarmos nosso webhook, se você não está com seu webhook(V1) e ngrok em pé é uma boa hora para subir novamente!
-
+Agora, que estamos dentro do Gitlab, vamos criar um repositório para testarmos nosso webhook. Se você não está com seu `dia1/webhook.py` e o `ngrok` em pé é uma boa hora para subir novamente!
 
 Voltando para o Gitlab:
 
@@ -81,7 +78,6 @@ Voltando para o Gitlab:
 * Clique em _**Create Project**_
 
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/createproject.png?raw=true "Webhook")
-
 
 ## Testando Webhook
 
@@ -98,21 +94,18 @@ Abra seu repositório e do lado esquerdo clique em:
 
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/addwebhook.png?raw=true "Webhook")
 
-Se tudo der certo você terá um webhook adicionado no Gitlab, agora podemos testar! :)
+Se tudo der certo você terá um webhook adicionado no Gitlab,  agora podemos testar! :)
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/testwebhook.png?raw=true "Webhook")
-
+![alt text](../images/webhooksave.png "Webhook")
 
 Clique em:
 
 * Test
 * Push Events
 
+![webhooktest](../images/webhooktest01.png "Webhook")
 
 Se você fez tudo certo você irá ver que seu webhook printou um push event do Gitlab no terminal do Flask!!
-
-
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/pushtest.png?raw=true "Webhook")
 
 Parabéns, agora você sabe criar e usar um webhook no Gitlab :)
 
@@ -182,22 +175,17 @@ Segue o Json formatado para que possamos entender um pouco melhor o que está se
 
 Perfeito! Vamos seguir para a próxima parte!
 
-
 ## Autenticando o Webhook
 
-A partir deste ponto iremos trabalhar como a primeira versão de webhook fizemos, se você tiver em dúvida veja o dia1/webhook.py.
-
-A primeira coisa para melhorarmos no nosso webhook é a autenticação, felizmente o Gitlab já nos presenteia com uma verificação via HTTP Header.
+Ainda usando o `dia1/webhook.py`, a primeira coisa para melhorarmos no nosso webhook é a autenticação e, felizmente, o Gitlab já nos presenteia com uma verificação via HTTP Header.
 
 Vamos primeiramente testar!
 
 Volte ao Gitlab e clique em edit no seu webhook, após isso vá até o topo da página e adicione em _**Secret**_ _**Token**_ um token qualquer:
 
-
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/tokensecret.png?raw=true "Webhook")
 
-
-Agora vamos editar nosso webhook para que ele verifique o token enviado:
+Agora vamos editar nosso `webhook.py` para que ele verifique o token enviado:
 
 ```
 from flask import Flask, request, abort   # Imports do Flask
@@ -219,14 +207,14 @@ if __name__ == '__main__':
     app.run()
 ```
 
-Agora rode ele e teste novamente o seu webhook via Gitlab:
-
-Você provavelmente receberá uma mensagem:
+Rode ele e teste novamente o seu webhook via Gitlab. Você provavelmente receberá uma mensagem:
 
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/wrongtoken.png?raw=true "Webhook")
 
 
-Agora pare seu Flask e coloque exatamente a senha que foi colocada na Interface do Gitlab no seu código e você deverá ver novamente o conteúdo e agora autenticado!
+Agora pare seu Flask, coloque exatamente a senha que foi colocada na interface do Gitlab no seu código, execute ele novamente, faça o teste na interface do Gitlab e você deverá ver novamente o conteúdo e agora autenticado!
+
+Matenha esse Flask ativo! Iremos usar ele, novamente, já já
 
 ## Aprovando um merge request
 
@@ -247,18 +235,14 @@ Você terá algo assim:
 
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/mr.png?raw=true "Webhook")
 
-
-
 Perfeito! Agora vamos começar nosso webhook para aprovação de Merge Requests!
 
 A primeira coisa que faremos é testar nosso Webhook novamente agora com o que precisamos de fato consumir que será comentário, o funcionamento será o seguinte:
-
 
 1. Usuário A cria MR
 2. Usuário B revisa o MR
 3. Usuário B comenta no MR - "Aprovado"
 4. Webhook aceita o merge
-
 
 Quais as condições para que isso aconteça via webhook?
 
@@ -267,13 +251,9 @@ Quais as condições para que isso aconteça via webhook?
 3. O MR precisa ser "mergeavel"
 4. String do comentário precisa ser "Aprovado"
 
-
 Se todas essas condições passarem o webhook irá fazer o MR.
 
-
-Ok Vamos lá!
-
-Só para relembrar iremos começar trabalhar em um arquivo novo com o conteúdo do nosso webhook_secret.py:
+Ok Vamos lá! A partir de agora vamos começar a trabalhar com o conteúdo do arquivo `dia2/webhook_secret.py`:
 
 ```
 from flask import Flask, request, abort   # Imports do Flask
@@ -295,6 +275,7 @@ if __name__ == '__main__':
     app.run()
 ```
 
+Lembre de alterar o `gitlab_http_token` no código e siga:
 
 1. Inicie o Flask
 2. Inicie o ngrok
@@ -303,16 +284,13 @@ if __name__ == '__main__':
 5. Vá Até o terminal do Flask e copie seu JSON
 6. Cole ele em um arquivo e deixe ele identado para facilitar
 
-
 Perfeito! Agora temos nosso payload com oque iremos trabalhar, vamos verificar a primeira condição que definimos lá em cima
-
 
 ### O Comentário precisa vir de um MR
 
-Beleza, temos nosso payload e precisamos verificar se o webhook enviou o nosso payload e ele veio de fato de um Merge Request, lembrando que qualquer tipo de comentário ativara nosso webhook então é importante fazer esse tratamento :)
+Beleza, temos nosso payload e precisamos verificar se o webhook que o enviou veio, de fato, de um Merge Request. Lembrando que qualquer tipo de comentário ativara nosso webhook então é importante fazer esse tratamento.
 
-
-Estamos procurando dentro do payload o dicionário: merge_request se ele tiver essa estrutura muito provavelmente seu webhook te enviou um comentário que está dentro de um merge_request, então vamos primeiro tratar o payload e assinalar uma variável para esse MR.
+Estamos procurando dentro do payload o dicionário `merge_request`, se ele tiver essa estrutura muito provavelmente seu webhook te enviou um comentário que está dentro de um merge_request, então vamos primeiro tratar o payload e assinalar uma variável para esse MR.
 
 ```
 from flask import Flask, request, abort   # Imports do Flask
@@ -340,14 +318,12 @@ if __name__ == '__main__':
     app.run()
 ```
 
-
-Você deverá ver no terminal do Flask:
+Após a alteração reinicie o Flask, adicione mais um comentário no MR aberto por você e, no terminal do Flask, você terá o seguinte retorno:
 
 ```
 Esse Webhook é de um Merge_request com Internal ID: 1
 127.0.0.1 - - [23/Apr/2020 12:33:59] "POST /webhook HTTP/1.1" 200 -
 ```
-
 
 Beleza! Temos nossa primeira condição completa! Vamos para a segunda.
 
@@ -360,7 +336,6 @@ Faremos a mesma coisa, precisamos agora:
 * Checar se um é diferente do outro
 
 Seguindo o mesmo passos iremos analisar a estrutura e achar o autor do Comentário e o autor do MR para comparar, para fazer este teste eu criei um novo user no Gitlab, fiz impersonate e comentei no MR.
-
 
 Object attributes são os atributos do comentário então o nosso autor tem ID 34
 ```
@@ -388,9 +363,7 @@ Utilizando a mesma lógica iremos:
 * Assinalar os valores para variáveis
 * Checar um com outro
 
-
 Vai ficar assim:
-
 
 ```
 from flask import Flask, request, abort   # Imports do Flask
@@ -441,7 +414,6 @@ O Autor do MR não pode aprovar o próprio MR
 ```
 
 Beleza agora temos a 2 condição pronta, vamos seguir.
-
 
 ### MR é "mergeavel"
 
@@ -496,23 +468,19 @@ if __name__ == '__main__':
 
 ```
 
-
 Boa! Se você fez tudo certo até agora você verá:
 
 Esse Webhook é de um Merge_request com Internal ID: 1
 Autor do MR: 1 e o Autor do Comentário: 34
 Esse MR pode ser Mergeado
 
-
 ### Checar o comentário
 
 Se o comentário for: "Aprovado!!!" iremos aprovar o MR se não iremos retornar uma mensagem que não foi possível realizar o mesmo.
 
-
 Seguindo a mesma lógica:
 
 ```
-
 from flask import Flask, request, abort   # Imports do Flask
 
 app = Flask(__name__) # Instância do Flask chamada app
@@ -556,7 +524,6 @@ if __name__ == '__main__':
 
 ```
 
-
 Agora se você não digitou corretamente você deve receber:
 
 ```
@@ -581,16 +548,21 @@ Pronto, agora estamos checando todas as condições previstas, vamos ao próximo
 
 Até agora temos:
 
-
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/dia2_diagram1.png?raw=true "Webhook")
 
-
 ### Interagindo com o Gitlab
-
 
 Finalmente vamos interagir com o Gitlab de fato via API, para isso vamos usar o requests para realizar as chamadas da API e teremos que utilizar um token para realizar essas chamadas.
 
 Primeiramente precisamos setar nossa url do gitlab e o header que passaremos que será o Private Token que criaremos:
+
+1 - Clique em seu avatar no canto superior direito e em settings
+2 - Na sidebar do lado esquerdo clique `Access Tokens`
+3 - Dê um nome ao seu token e selecione as opções conforme a imagem abaixo
+
+![alt text](../images/api-token.png "api-token")
+
+4 - Guarde o token gerado em algum local
 
 Coloque no começo do seu arquivo logo abaixo da definição do app.
 
@@ -606,10 +578,7 @@ Para fazer a chamada Post usando requests é simples veja o snippet abaixo:
 r = requests.put(url, headers=headers_variable)
 ```
 
-Para realizar o Merge iremos olhar a documentação do Gitlab API: https://docs.gitlab.com/ce/api/merge_requests.html
-
-Mais especificamente o **_Accept MR_**
-
+Para realizar o Merge iremos olhar a documentação do Gitlab API: https://docs.gitlab.com/ce/api/merge_requests.html, mais especificamente o **_Accept MR_**
 
 ```
 PUT /projects/:id/merge_requests/:merge_request_iid/merge
@@ -624,9 +593,7 @@ merge_request_iid (required) - Internal ID of MR
 
 Esses são os 2 parametros que usaremos para fazer o merge, perceba que já  merge_request_iid, precisamos agora pegar o ID do projeto e fazer a chamada via requests.
 
-
 E assim fica o código final:
-
 
 ```
 from flask import Flask, request, abort   # Imports do Flask
@@ -637,7 +604,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 app = Flask(__name__) # Instância do Flask chamada app
 
-url_base = 'http://gitlab.webhook/api/v4/' ## uso posterior
+url_base = 'http://localhost/api/v4/' ## uso posterior
 gitlab_http_token = "teste"
 gitlab_headers = {"PRIVATE-TOKEN": ""}
 
@@ -660,7 +627,7 @@ def webhook():                            # Defininindo a função webhook
                     print('Esse MR pode ser Mergeado')
                     if mr_notes == 'Aprovado!!!':
                         r = requests.put(f"{url_base}projects/{project_id}/merge_requests/{mr_iid}/merge", headers=gitlab_headers, verify=False)
-                        if r.status_code == '200':
+                        if r.status_code == 200:
                             print("Merge Realizado com Sucesso!")
                     else:                               
                         print('Comentário não confere ou Algo deu errado.')
@@ -679,7 +646,6 @@ if __name__ == '__main__':
     app.run()
 ```
 
-
 Note que tivemos que adicionar:
 
 ```
@@ -692,9 +658,6 @@ Pois estamos em um servidor sem Certificado!
 
 É isso por enquanto, ficamos com o resultado final desse jeito:
 
-
 ![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/dia2_final.png?raw=true "Webhook")
-
-
 
 Em  breve Dia 3 e 4!
