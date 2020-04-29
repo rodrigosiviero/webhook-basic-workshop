@@ -23,7 +23,7 @@ Para esse primeiro dia iremos:
 Para ilustrar será isso:
 
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/Dia1.png?raw=true "Webhook")
+![alt text](../images/Dia1.png?raw=true "Webhook")
 
 
 Bom vamos começar!
@@ -89,7 +89,7 @@ python webhook.py
 Se tudo funcionar você irá ver uma tela assim:
 
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/flask.png?raw=true "Webhook")
+![alt text](../images/flask.png?raw=true "Webhook")
 
 ## Consumindo seu webhook
 
@@ -111,7 +111,7 @@ Obs.: se não receber o retorno acima, execute o `curl` com o `-i` para ter o re
 
 Agora voltando ao terminal aonde está rodando o servidor você deverá ver a requisição que acabou de fazer!
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/olamundo.png?raw=true "Webhook")
+![alt text](../images/olamundo.png?raw=true "Webhook")
 
 
 Nesse comando estamos passando o -H que é o Header do request como Content-Type, ele serve para indicar para o servidor que estamos mandando um payload do tipo _JSON_.
@@ -191,7 +191,7 @@ ngrok http 5000
 Algo assim irá aparecer:
 
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/Dia1_ngrok.png?raw=true "Webhook")
+![alt text](../images/Dia1_ngrok.png?raw=true "Webhook")
 
 Isso significa que você está redirecionando o Flask para o ngrok, que te gerou um domínio temporário externo e você compartilhar para seus amigos o mesmo!
 
@@ -203,7 +203,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"nome": "Beltrano", "mensa
 
 Agora temos diversas pessoas mandando diversos posts para diversos webhooks distintos, temos mais ou menos algo assim:
 
-![alt text](https://github.com/rodrigosiviero/webhook-basic-woorkshop/blob/master/images/final_day1.png?raw=true "Webhook")
+![alt text](../images/final_day1.png?raw=true "Webhook")
 
 
 # Dia 2
