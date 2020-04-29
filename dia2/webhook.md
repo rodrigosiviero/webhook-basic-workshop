@@ -596,7 +596,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 app = Flask(__name__) # Instância do Flask chamada app
 
-url_base = 'http://gitlab.webhook/api/v4/' ## uso posterior
+url_base = 'http://localhost/api/v4/' ## uso posterior
 gitlab_http_token = "teste"
 gitlab_headers = {"PRIVATE-TOKEN": ""}
 
