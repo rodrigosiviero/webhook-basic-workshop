@@ -556,6 +556,14 @@ Finalmente vamos interagir com o Gitlab de fato via API, para isso vamos usar o 
 
 Primeiramente precisamos setar nossa url do gitlab e o header que passaremos que será o Private Token que criaremos:
 
+1 - Clique em seu avatar no canto superior direito e em settings
+2 - Na sidebar do lado esquerdo clique `Access Tokens`
+3 - Dê um nome ao seu token e selecione as opções conforme a imagem abaixo
+
+![alt text](../images/api-token.png "api-token")
+
+4 - Guarde o token gerado em algum local
+
 Coloque no começo do seu arquivo logo abaixo da definição do app.
 
 ```
