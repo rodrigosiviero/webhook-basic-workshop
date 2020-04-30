@@ -56,3 +56,9 @@ Agora que você está com tudo pronto vamos para o dia 1!
 * https://en.wikipedia.org/wiki/Webhook
 * https://docs.gitlab.com/ce/api/
 * https://flask.palletsprojects.com/en/1.1.x/
+
+
+## Agradecimentos
+
+* https://github.com/leandro-lourenco
+* https://github.com/lhonda

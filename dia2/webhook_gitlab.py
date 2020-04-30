@@ -27,7 +27,7 @@ def webhook():                            # Defininindo a função webhook
         
         if mr_author == note_author:
             return "Autor do MR é Igual ao aprovador", 400
-
+ 
         if mr_status != 'can_be_merged':
             return 'Esse MR não é mergeavel', 400
         
@@ -36,7 +36,7 @@ def webhook():                            # Defininindo a função webhook
             if r.status_code != 200:
                 return 'Algo deu errado no MR', 404
         return 'Comentário aprovado', 200
-    else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
+    else:                               
         return 'Seu Token está errado ou isso não é um POST', 405
 if __name__ == '__main__':
     app.run()
