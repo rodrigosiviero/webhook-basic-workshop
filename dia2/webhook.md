@@ -29,7 +29,7 @@ Abra seu terminal navegue até a pasta do dia 2 aonde o docker-compose.yml se en
 docker-compose up -d
 ```
 
-OPCIONAL:
+OPCIONAL: (APENAS PARA LINUX)
 
 Se você quiser facilitar na hora de entrar no gitlab vamos adicionar uma entry no /etc/hosts:
 
