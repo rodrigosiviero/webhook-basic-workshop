@@ -92,7 +92,7 @@ Abra seu repositório e do lado esquerdo clique em:
 * Disabilite o enable ssl verification
 * Add Hook
 
-![alt text]../images/addwebhook.png?raw=true "Webhook")
+![alt text](../images/addwebhook.png?raw=true "Webhook")
 
 Se tudo der certo você terá um webhook adicionado no Gitlab,  agora podemos testar! :)
 
@@ -183,7 +183,7 @@ Vamos primeiramente testar!
 
 Volte ao Gitlab e clique em edit no seu webhook, após isso vá até o topo da página e adicione em _**Secret**_ _**Token**_ um token qualquer:
 
-![alt text]../images/tokensecret.png?raw=true "Webhook")
+![alt text](../images/tokensecret.png?raw=true "Webhook")
 
 Agora vamos editar nosso `webhook.py` para que ele verifique o token enviado:
 
@@ -209,7 +209,7 @@ if __name__ == '__main__':
 
 Rode ele e teste novamente o seu webhook via Gitlab. Você provavelmente receberá uma mensagem:
 
-![alt text]../images/wrongtoken.png?raw=true "Webhook")
+![alt text](../images/wrongtoken.png?raw=true "Webhook")
 
 
 Agora pare seu Flask, coloque exatamente a senha que foi colocada na interface do Gitlab no seu código, execute ele novamente, faça o teste na interface do Gitlab e você deverá ver novamente o conteúdo e agora autenticado!
@@ -233,7 +233,7 @@ Crie uma modificação qualquer no README em _**develop**_ e depois crie um merg
 
 Você terá algo assim:
 
-![alt text]../images/mr.png?raw=true "Webhook")
+![alt text](../images/mr.png?raw=true "Webhook")
 
 Perfeito! Agora vamos começar nosso webhook para aprovação de Merge Requests!
 
@@ -548,7 +548,7 @@ Pronto, agora estamos checando todas as condições previstas, vamos ao próximo
 
 Até agora temos:
 
-![alt text]../images/dia2_diagram1.png?raw=true "Webhook")
+![alt text](../images/dia2_diagram1.png?raw=true "Webhook")
 
 ### Interagindo com o Gitlab
 
