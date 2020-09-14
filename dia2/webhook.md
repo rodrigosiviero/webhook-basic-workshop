@@ -306,10 +306,10 @@ def webhook():                            # Defininindo a função webhook
         #print(request.json)               # Simplesmente iremos voltar o request com os dados que estão vindo
         json_payload = request.json        # Assinalando o request.json para uma variável
         mr_iid = json_payload['merge_request']['iid'] # Aqui iremos assinalar o conteudo do merge_request -> iid para a variável
-        if mr_iid:
-            print(f'Esse Webhook é de um Merge_request com Internal ID: {mr_iid}')
-        else:
-            print('Erro')
+
+        if not mr_iid:
+            return "Esse Webhook não contém um comentário", 400
+      
         return '', 200                    # Retorne 200
     else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
         abort(400, 'Your HTTP Secret token is wrong or this is not a POST request')              
@@ -382,14 +382,14 @@ def webhook():                            # Defininindo a função webhook
         mr_author = json_payload['merge_request']['author_id']
         note_author = json_payload['object_attributes']['author_id']
         mr_status = json_payload['merge_request']['merge_status']
-        if mr_iid:
-            print(f'Esse Webhook é de um Merge_request com Internal ID: {mr_iid}')
-            if mr_author is not note_author:
-                print(f'Autor do MR: {mr_author} e o Autor do Comentário: {note_author}')
-            else:
-                print('O Autor do MR não pode aprovar o próprio MR')
-        else:
-            print('Erro')
+	
+        if not mr_iid:
+            return "Esse Webhook não contém um comentário", 400
+        
+        if mr_author == note_author:
+            return "Autor do MR é Igual ao aprovador", 400
+
+
         return '', 200                    # Retorne 200
     else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
         abort(400, 'Seu Token está errado ou isso não é um POST')              
@@ -447,18 +447,16 @@ def webhook():                            # Defininindo a função webhook
         mr_author = json_payload['merge_request']['author_id']
         note_author = json_payload['object_attributes']['author_id']
         mr_status = json_payload['merge_request']['merge_status']
-        if mr_iid:
-            print(f'Esse Webhook é de um Merge_request com Internal ID: {mr_iid}')
-            if mr_author is not note_author:
-                print(f'Autor do MR: {mr_author} e o Autor do Comentário: {note_author}')
-                if mr_status == 'can_be_merged':
-                    print('Esse MR pode ser Mergeado')
-                else:
-                    print('Esse MR não pode ser Mergeado')
-            else:
-                print('O Autor do MR não pode aprovar o próprio MR')
-        else:
-            print('Erro')
+	
+        if not mr_iid:
+            return "Esse Webhook não contém um comentário", 400
+        
+        if mr_author == note_author:
+            return "Autor do MR é Igual ao aprovador", 400
+
+        if mr_status != 'can_be_merged':
+            return 'Esse MR não é mergeavel', 400
+        
         return '', 200                    # Retorne 200
     else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
         abort(400, 'Seu Token está errado ou isso não é um POST')              
@@ -499,22 +497,19 @@ def webhook():                            # Defininindo a função webhook
         note_author = json_payload['object_attributes']['author_id']
         mr_status = json_payload['merge_request']['merge_status']
         mr_notes = json_payload['object_attributes']['note']
-        if mr_iid:
-            print(f'Esse Webhook é de um Merge_request com Internal ID: {mr_iid}')
-            if mr_author is not note_author:
-                print(f'Autor do MR: {mr_author} e o Autor do Comentário: {note_author}')
-                if mr_status == 'can_be_merged':
-                    print('Esse MR pode ser Mergeado')
-                    if mr_notes == 'Aprovado!!!':
-                        print('Faça o Merge')
-                    else:
-                        print('Comentário não confere ou Algo deu errado.')
-                else:
-                    print('Esse MR não pode ser Mergeado')
-            else:
-                print('O Autor do MR não pode aprovar o próprio MR')
-        else:
-            print('Erro')
+	
+        if not mr_iid:
+            return "Esse Webhook não contém um comentário", 400
+        
+        if mr_author == note_author:
+            return "Autor do MR é Igual ao aprovador", 400
+
+        if mr_status != 'can_be_merged':
+            return 'Esse MR não é mergeavel', 400
+
+        if mr_notes == 'Aprovado!!!':
+	    return "Faça o Merge"
+
         return '', 200                    # Retorne 200
     else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
         abort(400, 'Seu Token está errado ou isso não é um POST')              
@@ -619,25 +614,20 @@ def webhook():                            # Defininindo a função webhook
         mr_notes = json_payload['object_attributes']['note']
         mr_creator = json_payload['user']['name']
         project_id = json_payload['object_attributes']['project_id']
-        if mr_iid:
-            print(f'Esse Webhook é de um Merge_request com Internal ID: {mr_iid}')
-            if mr_author is not note_author:
-                print(f'Autor do MR: {mr_author} e o Autor do Comentário: {note_author}')
-                if mr_status == 'can_be_merged':
-                    print('Esse MR pode ser Mergeado')
-                    if mr_notes == 'Aprovado!!!':
-                        r = requests.put(f"{url_base}projects/{project_id}/merge_requests/{mr_iid}/merge", headers=gitlab_headers, verify=False)
-                        if r.status_code == 200:
-                            print("Merge Realizado com Sucesso!")
-                    else:                               
-                        print('Comentário não confere ou Algo deu errado.')
-                else:
-                    print('Esse MR não pode ser Mergeado')
+	
+        if not mr_iid:
+            return "Esse Webhook não contém um comentário", 400
+        
+        if mr_author == note_author:
+            return "Autor do MR é Igual ao aprovador", 400
 
-            else:
-                print('O Autor do MR não pode aprovar o próprio MR')
-        else:
-            print('Esse Webhook não tem um Merge_request presente')
+        if mr_status != 'can_be_merged':
+            return 'Esse MR não é mergeavel', 400
+        
+        if mr_notes == 'Aprovado!!!':
+            r = requests.put(f"{url_base}projects/{project_id}/merge_requests/{mr_iid}/merge", headers=gitlab_headers, verify=False)
+            if r.status_code != 200:
+                return 'Algo deu errado no MR', 404
         return '', 200                    # Retorne 200
     else:                                 # Se o request for diferente de POST volte abort come erro 400 - Bad request, nesse caso irá voltar 405 por causa do Flask.  
         abort(400, 'Seu Token está errado ou isso não é um POST')              
