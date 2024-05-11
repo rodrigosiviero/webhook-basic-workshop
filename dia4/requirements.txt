@@ -6,7 +6,7 @@ click==7.1.1
 coverage==5.1
 decorator==4.4.2
 Flask==2.2.5
-idna==2.9
+idna==3.7
 ipdb==0.13.2
 ipython==8.10.0
 ipython-genutils==0.2.0
