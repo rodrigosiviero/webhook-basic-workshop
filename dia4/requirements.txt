@@ -27,7 +27,7 @@ Pygments==2.15.0
 pyparsing==2.4.7
 pytest==5.4.1
 pytest-cov==2.8.1
-requests==2.31.0
+requests==2.32.0
 six==1.14.0
 traitlets==4.3.3
 urllib3==1.26.18
